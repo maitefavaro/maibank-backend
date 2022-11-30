@@ -18,3 +18,5 @@ class ContaViewSet(ModelViewSet):
 class CartaoViewSet(ModelViewSet):
     queryset = Cartao.objects.all()
     serializer_class = CartaoSerializer
+
+    
