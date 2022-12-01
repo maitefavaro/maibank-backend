@@ -29,7 +29,7 @@ class Conta(Model):
     saldo  =DecimalField(max_digits=20, decimal_places=2)
    
     def __str__(self) -> str:
-        return str(self.id)
+        return str(self.usuario)
     
 
 

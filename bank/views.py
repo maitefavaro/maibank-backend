@@ -1,3 +1,4 @@
+import decimal
 from .models import *
 from rest_framework.viewsets import ModelViewSet 
 from rest_framework.views import APIView
@@ -27,7 +28,6 @@ class LogarViewSet(ModelViewSet):
             print("erro")
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-
 class ContaViewSet(ModelViewSet):
     queryset = Conta.objects.all()
     serializer_class = ContaSerializer
@@ -47,20 +47,20 @@ class TransacaoViewSet(ModelViewSet):
     def create(self, request, *args, **kwargs):
         beneficiario = Conta.objects.get(pk=self.request.data
         ["beneficiario"])
-        beneficiado = Conta.objects.ge(pk=self.request.data
+        beneficiado = Conta.objects.get(pk=self.request.data
         ["beneficiado"])
         valor = decimal.Decimal(self.request.data
         ["valor_transacao"])
 
         if beneficiario.saldo >= valor:
-            env = {'cliente':beneficiario.pk,'conta':beneficiario.conta,'agencia':beneficiario.agencia,'saldo':beneficiario.saldo-valor}
+            env = {'usuario':beneficiario.pk,'conta':beneficiario.conta,'agencia':beneficiario.agencia,'saldo':beneficiario.saldo-valor}
             serializer = ContaSerializer(beneficiario, data=env)
             if serializer.is_valid():
                 serializer.save()
             else:
                 print(serializer.errors)
 
-            rec = {'cliente':beneficiado.pk,'agencia':beneficiado.agencia,'conta':beneficiado.conta,'saldo':beneficiado.saldo+valor}
+            rec = {'usuario':beneficiado.pk,'agencia':beneficiado.agencia,'conta':beneficiado.conta,'saldo':beneficiado.saldo+valor}
 
             serializer_dois = ContaSerializer(beneficiado,data=rec)
             if serializer_dois.is_valid():
