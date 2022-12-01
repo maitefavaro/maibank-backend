@@ -17,7 +17,7 @@ class Usuario(Model):
     senha =CharField(max_length=100)
 
     def __str__(self) -> str:
-        return self.id
+        return str(self.nome)
 
 
 
@@ -29,10 +29,8 @@ class Conta(Model):
     saldo  =DecimalField(max_digits=20, decimal_places=2)
    
     def __str__(self) -> str:
-        return self.conta
-
-
-
+        return str(self.id)
+    
 
 
 class Cartao(Model):
@@ -45,6 +43,8 @@ class Cartao(Model):
 
     def __str__(self) -> str:
         return self.id
+    
+    
 
 
 
@@ -93,7 +93,7 @@ class Emprestimo(Model):
 
 
 
-class Pag_emprestimo(Model):
+class Pag_Emprestimo(Model):
 
     emprestimo = ForeignKey(Emprestimo, on_delete=CASCADE, verbose_name="Emprestimo")
     data_vencimento = DateField(verbose_name="Data de vencimento")

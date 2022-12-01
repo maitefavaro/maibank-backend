@@ -7,6 +7,11 @@ class UsuarioSerializer(ModelSerializer):
         model = Usuario
         fields = "__all__"
 
+class LogarSerializer(ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['cpf','senha']   
+
 
 class ContaSerializer(ModelSerializer):
     class Meta:
@@ -38,9 +43,9 @@ class EmprestimoSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class PagEmprestimoSerialzer(ModelSerializer):
+class PagEmprestimoSerializer(ModelSerializer):
     class Meta:
-        model = Pag_emprestimo
+        model = Pag_Emprestimo
         fields = "__all__"
 
 
